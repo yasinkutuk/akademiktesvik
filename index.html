@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#111b31">
+  <meta name="description" content="Akademik teşvik puanı hesaplama aracı: 2026 puan ve ödeme tahmini, Q sınıfı, ortak yazarlık, tüm faaliyet türleri.">
+  <title>Akademik Teşvik Hesaplama · 2026</title>
+  <link rel="canonical" href="https://akademiktesvik.yasinkutuk.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Akademik Teşvik Puanı Hesaplama · 2026">
+  <meta property="og:url" content="https://akademiktesvik.yasinkutuk.com/">
+  <link rel="stylesheet" href="styles.css">
+  <script src="engine.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <svg class="svg-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 1.9 6.1L20 11l-6.1 1.9L12 19l-1.9-6.1L4 11l6.1-1.9L12 3Z"/><path d="m19 17 .7 2.3L22 20l-2.3.7L19 23l-.7-2.3L16 20l2.3-.7L19 17Z"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v13m-5-5 5 5 5-5M4 17v4h16v-4"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 21V8m-5 5 5-5 5 5M4 7V3h16v4"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5 19 19M19 5 5 19"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 4h4m-8 3 1 14h10l1-14M10 11v6m4-6v6"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h5L20 9a3 3 0 0 0-5-5L4 15v5ZM13 6l5 5"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 11v6m0-10h.01"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-printer" viewBox="0 0 24 24"><path d="M6 8V3h12v5M6 17H4V9h16v8h-2M6 14h12v7H6v-7Z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.5 8 8 11 4.5-3 8-6 8-11V5l-8-3Zm-3 10 2 2 4-4"/></symbol>
+    <symbol id="i-folder-kanban" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7Zm6 4v6m6-6v6"/></symbol>
+    <symbol id="i-flask-conical" viewBox="0 0 24 24"><path d="M9 3h6m-5 0v7L4 20h16l-6-10V3M7 15h10"/></symbol>
+    <symbol id="i-book-open" viewBox="0 0 24 24"><path d="M12 6c-3-2-6-2-10-2v15c4 0 7 0 10 2m0-15c3-2 6-2 10-2v15c-4 0-7 0-10 2V6Z"/></symbol>
+    <symbol id="i-pen-tool" viewBox="0 0 24 24"><path d="m12 19 7-7-7-7-7 7 7 7ZM12 5V2M5 12H2m17 0h3M12 19v3"/></symbol>
+    <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18h2a2 2 0 0 0 1.5-3.5 2 2 0 0 1 1.5-3.5h2a3 3 0 0 0 3-3c0-4-4-8-10-8Z"/><path d="M7 11h.01M10 7h.01M15 7h.01M18 11h.01"/></symbol>
+    <symbol id="i-lightbulb" viewBox="0 0 24 24"><path d="M9 18h6m-5 3h4m-2-19a8 8 0 0 0-5 14c1 .8 2 1.5 2 2h6c0-.5 1-1.2 2-2a8 8 0 0 0-5-14Z"/></symbol>
+    <symbol id="i-quote" viewBox="0 0 24 24"><path d="M10 9H4v7h6V9Zm10 0h-6v7h6V9ZM4 9c0-3 1-5 5-6m5 6c0-3 1-5 5-6"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4m-4 0h8"/></symbol>
+    <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="m9 15-1 7 4-2 4 2-1-7"/></symbol>
+  </svg>
+  <a class="skip-link" href="#main-content">İçeriğe geç</a>
+  <div class="app-layout">
+    <aside class="side-nav" aria-label="Uygulama menüsü">
+      <div class="brand"><div class="brand-icon"><svg><use href="#i-spark"></use></svg></div><div><strong>Akademik<span>Teşvik</span></strong><small>PUAN HESAPLAMA</small></div></div>
+      <div class="side-section-label">HESAPLAMA</div>
+      <button class="side-item selected" id="go-top"><svg><use href="#i-spark"></use></svg> Genel görünüm</button>
+      <div class="side-section-label category-label">FAALİYET TÜRLERİ</div>
+      <nav id="category-nav" class="category-nav" aria-label="Faaliyet türleri"></nav>
+      <div class="side-footer">
+        <div class="side-safe"><svg><use href="#i-shield"></use></svg> <div><strong>Verileriniz size ait</strong><p>Hesaplamalar cihazınızda yapılır. Sunucuya veri gönderilmez.</p></div></div>
+        <div class="side-version">BAĞIMSIZ UYGULAMA <span>v1.0</span></div>
+      </div>
+    </aside>
+    <div class="page">
+      <header class="topbar"><div class="breadcrumb">Araçlar <span>/</span> <b>Akademik Teşvik</b></div><div class="top-actions"><span class="period-tag"><span class="dot"></span> 2026 güncel katsayılar</span><a href="#sources" class="help-link">Mevzuat ve notlar <svg><use href="#i-arrow"></use></svg></a></div></header>
+      <div class="page-inner" id="main-content">
+        <section class="hero">
+          <div class="hero-text"><div class="eyebrow"><span class="eyebrow-dot"></span> AKADEMİK PLANLAMA ARACI</div><h1>Akademik teşvikinizi <em>kolayca hesaplayın.</em></h1><p>Yayınlarınızı, projelerinizi ve diğer akademik faaliyetlerinizi ekleyin. Puanınızı ve tahmini aylık ödemenizi anlık görün.</p><div class="hero-features"><span><svg><use href="#i-check"></use></svg> 9 faaliyet türü</span><span><svg><use href="#i-check"></use></svg> Mevzuata dayalı hesaplama</span><span><svg><use href="#i-check"></use></svg> Cihazda güvenli kayıt</span></div></div><div class="hero-decoration" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="hero-number">100<span>PUAN</span></div></div>
+        </section>
+
+        <section class="profile-section" aria-labelledby="profile-title"><div class="section-top"><div><p class="kicker">01 · BAŞLANGIÇ</p><h2 id="profile-title">Akademik bilgileriniz</h2><p>Doğru puanlama için unvan ve temel bilim alanınızı seçin.</p></div><span class="small-legend"><span class="legend-mark">*</span> Zorunlu bilgiler</span></div>
+          <div class="profile-grid">
+            <label class="field-block">Akademik unvan <span>*</span><select id="title-input"></select></label>
+            <label class="field-block">Temel bilim alanı <span>*</span><select id="field-input"></select></label>
+            <label class="field-block">Maaş katsayısı dönemi<select id="period-input"></select></label>
+            <label class="field-block">Aylık katsayı <span>*</span><input id="coefficient-input" type="number" min="0.000001" max="100" step="0.000001" inputmode="decimal"></label>
+          </div>
+          <p class="field-tip" id="field-description"><svg><use href="#i-info"></use></svg><span></span></p>
+        </section>
+
+        <div class="main-grid">
+          <main class="main-column">
+            <section id="activities" aria-labelledby="activities-title">
+              <div class="section-top activity-head"><div><p class="kicker">02 · FAALİYETLERİNİZ</p><h2 id="activities-title">Akademik faaliyetler</h2><p>Kategorileri inceleyin, uygun faaliyetleri <strong>+</strong> ile ekleyin.</p></div><span class="activity-counter" id="activity-counter">0 faaliyet eklendi</span></div>
+              <div class="searchbar"><svg><use href="#i-search"></use></svg><input type="search" id="activity-search" placeholder="Faaliyet ara: SSCI, Q1, TÜBİTAK, atıf, kitap..." aria-label="Faaliyetlerde ara"><button id="clear-search" class="clear-search" aria-label="Aramayı temizle" hidden><svg><use href="#i-close"></use></svg></button></div>
+              <div class="section-list" id="sections"></div>
+              <div id="no-results" class="no-results" hidden><svg><use href="#i-search"></use></svg><b>Sonuç bulunamadı</b><p>Arama kelimelerinizi değiştirerek yeniden deneyin.</p></div>
+            </section>
+            <section id="entry-history" class="history-section" aria-labelledby="history-title"><div class="section-top"><div><p class="kicker">03 · PUANLANAN KAYITLAR</p><h2 id="history-title">Eklediğiniz faaliyetler</h2><p>Kayıtların hesaplanan puanlarını ve formüllerini görebilirsiniz.</p></div><button id="clear-all" class="text-button danger" hidden><svg><use href="#i-trash"></use></svg> Tümünü sil</button></div><div id="history-content"></div></section>
+            <section id="sources" class="sources-section"><div class="sources-icon"><svg><use href="#i-info"></use></svg></div><div><h3>Hesaplama esasları ve önemli notlar</h3><p>Her kategori kendi azami puanıyla sınırlıdır; toplam puan 100'ü geçmez. Ödeme için en az 30 puan gerekir. Atıflarda öz atıflar dikkate alınmaz. Belgelerin uygunluğunu ve güncel yargı kararlarının etkisini kurumunuzun teşvik komisyonuna doğrulatın. Ekrandaki ödeme <strong>brüt tahmindir</strong>; damga vergisi düşülmemiştir.</p><div class="source-links"><a href="https://www.lexpera.com.tr/mevzuat/yonetmelikler/akademik-tesvik-odenegi-yonetmeligi-2018-11834-1" target="_blank" rel="noopener noreferrer">Akademik Teşvik Yönetmeliği ↗</a><a href="https://www.tbb.gov.tr/tr/mevzuat-duyurulari/2026-yili-temmuz-ayina-ait-mali-ve-sosyal-haklara-iliskin-genelge" target="_blank" rel="noopener noreferrer">Temmuz 2026 mali genelgesi ↗</a></div></div></section>
+          </main>
+          <aside class="result-column" aria-label="Hesaplama sonuçları"><div class="result-card" id="report-card"><div class="result-heading"><div><div class="result-kicker">ANLIK SONUÇ</div><h2>Teşvik özetiniz</h2></div><span class="live-dot" title="Anlık hesaplama"></span></div>
+            <div class="score-wrap"><div class="score-gauge" id="score-gauge"><div class="score-inner"><strong id="score-total">0,00</strong><span>/ 100 PUAN</span></div></div></div>
+            <div class="eligibility" id="eligibility"><svg><use href="#i-info"></use></svg><span>Ödeme için 30 puana ulaşmalısınız.</span></div>
+            <div class="amount"><span>TAHMİNİ AYLIK BRÜT TEŞVİK</span><strong id="gross-total">₺0,00</strong><small id="gross-subtitle">Temmuz – Aralık 2026 katsayısıyla</small></div>
+            <div class="result-separator"></div><div class="breakdown-title"><strong>Faaliyet dağılımı</strong><span>Alınan / Azami</span></div><div id="category-bars" class="category-bars"></div>
+            <div class="result-buttons"><button class="primary-button" id="export-png"><svg><use href="#i-download"></use></svg> PNG raporu indir</button><div class="double-buttons"><button id="export-json"><svg><use href="#i-download"></use></svg> Yedekle</button><button id="import-json"><svg><use href="#i-upload"></use></svg> Geri yükle</button></div><div class="double-buttons"><button id="export-csv"><svg><use href="#i-download"></use></svg> CSV</button><button id="print-report"><svg><use href="#i-printer"></use></svg> Yazdır</button></div></div>
+            <input id="file-input" type="file" accept="application/json,.json" hidden><div class="save-indicator" id="save-indicator">Yerel kayıt hazır</div>
+          </div></aside>
+        </div>
+        <footer class="site-footer"><span>© 2026 Akademik Teşvik Hesaplama · Bağımsız açık kaynak örnek uygulaması</span><span>Orijinal site: <a href="https://www.atasoyweb.net/Akademik-Tesvik-Puani-Hesaplama-Araci-II" target="_blank" rel="noopener noreferrer">AtasoyWeb ↗</a></span></footer>
+      </div>
+    </div>
+  </div>
+  <dialog id="add-dialog" class="activity-dialog" aria-labelledby="dialog-title"><form id="add-form"><div class="modal-head"><div><p class="kicker">FAALİYET EKLE</p><h2 id="dialog-title">Faaliyet bilgileri</h2></div><button type="button" class="icon-close" id="close-dialog" aria-label="Pencereyi kapat"><svg><use href="#i-close"></use></svg></button></div><div class="modal-body"><div class="selected-activity"><span id="selected-id">3.1</span><div><strong id="selected-label"></strong><p id="selected-hint"></p></div></div><div class="modal-fields" id="modal-fields"></div><label class="field-block modal-note">Açıklama / eser adı <small>(isteğe bağlı)</small><input name="note" maxlength="500" placeholder="Örn. Makale adı, DOI, proje kodu..."></label><div class="formula-preview"><div><span>BU KAYIT İÇİN HESAPLANAN PUAN</span><strong id="preview-score">0,00</strong></div><small id="preview-formula"></small></div><p id="form-error" class="form-error" role="alert" hidden></p></div><div class="modal-footer"><button type="button" class="secondary-button" id="cancel-dialog">Vazgeç</button><button type="submit" class="primary-button" id="submit-entry"><svg><use href="#i-plus"></use></svg> Faaliyeti ekle</button></div></form></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
