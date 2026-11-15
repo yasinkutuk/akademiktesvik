@@ -219,6 +219,7 @@
     };
     const entries=data.entries.map((e,i)=>({
       id:String(e.id||`item-${i}`).slice(0,80),
+      ownerId:/^[A-Za-z0-9_-]{1,100}$/.test(String(e.ownerId||''))?String(e.ownerId):'',
       activityId:String(e.activityId||''),
       quantity:num(e.quantity,1),
       people:num(e.people,1),
@@ -236,7 +237,34 @@
       validateEntry(entry, validField);
     }
     calculate({...settings,entries});
-    return {...settings, entries};
+    // Review items are deliberately outside entries: calculate() never reads them.
+    const review = Array.isArray(data.review) ? data.review.filter(r=>r && typeof r==='object' && (r.section?['article','conference','book','project','award'].includes(r.section):/makale|bildiri|kitap|proje|ödül|yayın|tebliğ/.test(String(r.kind||'Yayın').toLocaleLowerCase('tr-TR')))).slice(0, 5000).map(r=>({
+      ownerId:/^[A-Za-z0-9_-]{1,100}$/.test(String(r.ownerId||''))?String(r.ownerId):'',
+      key:String(r.key||'').slice(0,80), title:String(r.title||'').slice(0,2000),
+      year:Number.isInteger(r.year)?r.year:null, requestedYear:Number(r.requestedYear)||null,
+      section:String(r.section||'').slice(0,60),sectionLabel:String(r.sectionLabel||'').slice(0,100),
+      scoreExclusion:String(r.scoreExclusion||'').slice(0,1000),importNotes:Array.isArray(r.importNotes)?r.importNotes.slice(0,20).map(n=>String(n).slice(0,1000)):[],
+      kind:String(r.kind||'Yayın').slice(0,100), metadata:String(r.metadata||'').slice(0,6000),
+      source:/^https:\/\/akademik\.yok\.gov\.tr\/(?:AkademikArama\/|academician-details\?authorGuidId=)/.test(String(r.source))?String(r.source).slice(0,2000):'',
+      researcher:String(r.researcher||'').slice(0,250), dateWarning:String(r.dateWarning||'').slice(0,500),
+      status:['pending','preapproved','rejected'].includes(r.status)?r.status:'pending',
+      draft:{activityId:String(r.draft?.activityId||''),people:String(r.draft?.people||'').slice(0,10),
+        role:String(r.draft?.role||''),projectMonths:String(r.draft?.projectMonths||'').slice(0,10),months:String(r.draft?.months||'').slice(0,10),
+        quartile:String(r.draft?.quartile||''),bookTitle:String(r.draft?.bookTitle||'').slice(0,250),
+        confirmed:r.draft?.confirmed===true,yearConfirmed:r.draft?.yearConfirmed===true},
+      reviewedAt:String(r.reviewedAt||'').slice(0,50)
+    })).filter(r=>r.key && r.title) : [];
+    const safeSource=value=>/^https:\/\/akademik\.yok\.gov\.tr\/(?:AkademikArama\/|academician-details\?authorGuidId=)/.test(String(value))?String(value).slice(0,2000):'';
+    const sourceSections=Array.isArray(data.sourceSections)?data.sourceSections.filter(s=>s&&typeof s==='object'&&['article','conference','book','project','award'].includes(s.id)).slice(0,30).map(s=>({
+      id:String(s.id||'').slice(0,60),label:String(s.label||'').slice(0,100),status:String(s.status||'').slice(0,40),
+      count:Math.max(0,Number(s.count)||0),pages:Math.max(0,Number(s.pages)||0),error:String(s.error||'').slice(0,2000),
+      source:safeSource(s.source),rawText:String(s.rawText||'').slice(0,60000)
+    })):[];
+    // Previous raw profile text is intentionally discarded on load and restore.
+    const identity=data.importIdentity||data.sourceProfile;
+    const importIdentity=identity&&typeof identity==='object'?{name:String(identity.name||'').slice(0,250),source:safeSource(identity.source)}:null;
+    const personId=/^[A-Za-z0-9_-]{1,100}$/.test(String(data.personId||''))?String(data.personId):'';
+    return {...settings, entries, review, sourceSections, importIdentity, personId};
   }
   return {PERIODS,TITLES,FIELDS,CATEGORIES,ACTIVITIES,BY_ID,DEFAULTS,QUARTILE,authorCoefficient,validateEntry,entryBreakdown,calculate,cleanImport};
 });

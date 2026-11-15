@@ -49,7 +49,7 @@
       <div class="side-section-label category-label">FAALİYET TÜRLERİ</div>
       <nav id="category-nav" class="category-nav" aria-label="Faaliyet türleri"></nav>
       <div class="side-footer">
-        <div class="side-safe"><svg><use href="#i-shield"></use></svg> <div><strong>Verileriniz size ait</strong><p>Hesaplamalar cihazınızda yapılır. Sunucuya veri gönderilmez.</p></div></div>
+        <div class="side-safe"><svg><use href="#i-shield"></use></svg> <div><strong>Verileriniz size ait</strong><p>Hesaplamalar cihazınızda yapılır. Otomatik aktarımda araştırmacı ID ve yıl sunucuya gönderilir.</p></div></div>
         <div class="side-version">BAĞIMSIZ UYGULAMA <span>v1.0</span></div>
       </div>
     </aside>
@@ -60,6 +60,27 @@
           <div class="hero-text"><div class="eyebrow"><span class="eyebrow-dot"></span> AKADEMİK PLANLAMA ARACI</div><h1>Akademik teşvikinizi <em>kolayca hesaplayın.</em></h1><p>Yayınlarınızı, projelerinizi ve diğer akademik faaliyetlerinizi ekleyin. Puanınızı ve tahmini aylık ödemenizi anlık görün.</p><div class="hero-features"><span><svg><use href="#i-check"></use></svg> 9 faaliyet türü</span><span><svg><use href="#i-check"></use></svg> Mevzuata dayalı hesaplama</span><span><svg><use href="#i-check"></use></svg> Cihazda güvenli kayıt</span></div></div><div class="hero-decoration" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="hero-number">100<span>PUAN</span></div></div>
         </section>
 
+        <section class="profile-section yok-import" aria-labelledby="yok-heading">
+          <div class="section-top"><div><p class="kicker">YÖK AKADEMİK · OTOMATİK DOLDUR</p><h2 id="yok-heading">Yıla göre faaliyet aktarımı</h2><p>Yalnızca MAKALE, BİLDİRİ, KİTAP, PROJELER ve ÖDÜLLER kayıtlarını getirin. Açılır pencerede tümüne onay verin; puanlanabilir kayıtları hesaplamaya dahil edin.</p></div></div>
+          <div class="yok-name-search"><label class="field-block">Akademisyen adı ve soyadı<input id="yok-name" maxlength="150" placeholder="Ad Soyad"></label><button id="yok-search" class="secondary-button" type="button">İsimle ara</button></div>
+          <p id="yok-search-status" role="status" aria-live="polite"></p><div id="yok-candidates"></div>
+          <section id="publication-summary" class="publication-summary" aria-labelledby="publication-summary-title" aria-busy="false" hidden>
+            <div class="publication-summary-head"><div><p class="kicker">YAYIN ÖZETİ · TÜM YILLAR</p><h3 id="publication-summary-title">İndeksli yayınlar</h3></div><button id="refresh-publication-summary" class="secondary-button" type="button">Yenile</button></div>
+            <p id="publication-summary-status" role="status" aria-live="polite"></p>
+            <div class="publication-index-grid"><div><span>SSCI</span><strong id="index-count-SSCI">—</strong></div><div><span>SCI / SCI-E</span><strong id="index-count-SCI">—</strong></div><div><span>AHCI</span><strong id="index-count-AHCI">—</strong></div><div><span>SCOPUS</span><strong id="index-count-SCOPUS">—</strong></div></div>
+            <p id="publication-summary-note" class="publication-summary-note">Bu sayılar teşvik puanı değildir.</p>
+          </section>
+          <div class="profile-grid">
+            <label class="field-block">YÖK profil bağlantısı / authorGuidId<input id="yok-id" maxlength="500" placeholder="https://akademik.yok.gov.tr/academician-details?authorGuidId=…"></label>
+            <label class="field-block">Faaliyet yılı<select id="activity-year"></select></label>
+          </div>
+          <p>Seçilen yılın kayıtları ayrı saklanır. Ödeme dönemi aşağıdan ayrıca seçilir. Geçmiş yıllar için mevcut puanlama kurallarıyla tahmin üretilir.</p>
+          <button id="yok-fetch" class="primary-button" type="button">Beş faaliyet türünü getir</button>
+          <details class="saved-yok-import"><summary>YÖK erişimi engelleniyorsa: kaydedilmiş HTML sayfalarından getir</summary><p>YÖK bölümlerini kendi tarayıcınızda açıp HTML olarak kaydedin. Ad/soyad ve profil bağlantısını yukarıya girin; dosyaları seçip her dosyanın bölümünü belirtin. Yalnızca HTML dosyaları okunur.</p><input id="yok-html-files" type="file" accept=".html,.htm,text/html" multiple aria-label="Kaydedilmiş YÖK sayfaları"><div id="yok-html-mapping"></div><button id="yok-html-import" class="secondary-button" type="button" disabled>HTML sayfalarını incelemeye al</button><p id="yok-html-status" role="status"></p></details>
+          <p id="yok-status" role="status" aria-live="polite"></p>
+          <p id="review-summary" class="review-summary" role="status"></p>
+          <button id="open-review" class="secondary-button" type="button" aria-haspopup="dialog" aria-controls="review-dialog">İnceleme penceresini aç</button>
+        </section>
         <section class="profile-section" aria-labelledby="profile-title"><div class="section-top"><div><p class="kicker">01 · BAŞLANGIÇ</p><h2 id="profile-title">Akademik bilgileriniz</h2><p>Doğru puanlama için unvan ve temel bilim alanınızı seçin.</p></div><span class="small-legend"><span class="legend-mark">*</span> Zorunlu bilgiler</span></div>
           <div class="profile-grid">
             <label class="field-block">Akademik unvan <span>*</span><select id="title-input"></select></label>
@@ -94,6 +115,11 @@
       </div>
     </div>
   </div>
+  <dialog id="review-dialog" class="activity-dialog review-dialog" aria-labelledby="review-dialog-title" aria-describedby="review-dialog-description">
+    <div class="modal-head"><div><p class="kicker">YÖK AKADEMİK · İNCELEME</p><h2 id="review-dialog-title">Getirilen faaliyetleri inceleyin</h2></div><button type="button" class="icon-close" id="close-review" aria-label="İnceleme penceresini kapat"><svg><use href="#i-close"></use></svg></button></div>
+    <div class="modal-body review-dialog-body"><p id="review-dialog-description">Bölümleri ve kayıtları inceleyin. Tümüne onay ver düğmesiyle ön onay verebilir, ardından ön onaylı ve eksiksiz kayıtları hesaplamaya dahil edebilirsiniz. Eksik bilgili veya ön onaysız kayıtlar hesaplamaya katılmaz; incelemede kalır. Yalnızca makale, bildiri, kitap, proje ve ödül kayıtları gösterilir. Başka yılların kayıtları seçili yılın puanına eklenmez.</p><p id="review-dialog-summary" class="review-summary" role="status"></p><details class="source-section-overview"><summary>Beş faaliyet türünün aktarım durumu</summary><div id="profile-section-reports"></div></details><div id="yok-preview"></div></div>
+    <div class="modal-footer review-dialog-footer"><div><p id="review-bulk-hint"></p><p id="review-bulk-result" class="review-batch-result" role="status" hidden></p><p id="review-bulk-error" class="form-error" role="alert" hidden></p></div><div class="review-actions"><button type="button" class="secondary-button" id="review-later">Daha sonra devam et</button><button type="button" class="secondary-button" id="preapprove-all-review">Tümüne onay ver</button><button type="button" class="primary-button" id="approve-all-review">Ön onaylıları hesaplamaya dahil et</button></div></div>
+  </dialog>
   <dialog id="add-dialog" class="activity-dialog" aria-labelledby="dialog-title"><form id="add-form"><div class="modal-head"><div><p class="kicker">FAALİYET EKLE</p><h2 id="dialog-title">Faaliyet bilgileri</h2></div><button type="button" class="icon-close" id="close-dialog" aria-label="Pencereyi kapat"><svg><use href="#i-close"></use></svg></button></div><div class="modal-body"><div class="selected-activity"><span id="selected-id">3.1</span><div><strong id="selected-label"></strong><p id="selected-hint"></p></div></div><div class="modal-fields" id="modal-fields"></div><label class="field-block modal-note">Açıklama / eser adı <small>(isteğe bağlı)</small><input name="note" maxlength="500" placeholder="Örn. Makale adı, DOI, proje kodu..."></label><div class="formula-preview"><div><span>BU KAYIT İÇİN HESAPLANAN PUAN</span><strong id="preview-score">0,00</strong></div><small id="preview-formula"></small></div><p id="form-error" class="form-error" role="alert" hidden></p></div><div class="modal-footer"><button type="button" class="secondary-button" id="cancel-dialog">Vazgeç</button><button type="submit" class="primary-button" id="submit-entry"><svg><use href="#i-plus"></use></svg> Faaliyeti ekle</button></div></form></dialog>
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 </body>

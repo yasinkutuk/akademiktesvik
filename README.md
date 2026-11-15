@@ -1,31 +1,22 @@
-# Akademik Teşvik Puanı Hesaplama (GitHub Pages)
+# Akademik Teşvik v13
 
-Hedef yayın adresi: **https://akademiktesvik.yasinkutuk.com/**
+“Bu profili seç” düğmesinden hemen sonra yayın özeti açılır. Tüm yıllardaki makale, bildiri ve kitap kayıtlarında açıkça belirtilen **SSCI, SCI/SCI-E, AHCI ve SCOPUS** sayıları gösterilir. Özet puanı değiştirmez ve tam faaliyet aktarımını beklemez.
 
-Bu dosyalar yeni bir GitHub deposunun **kök dizinine** yüklenmelidir.
-Mevcut `yasinkutuk/yasinkutuk.github.io` deposunu değiştirmeyin.
+Bir akademisyen arandıktan/seçildikten sonra yalnızca beş faaliyet türü aktarılır:
 
-## Kurulum
+- MAKALE
+- BİLDİRİ
+- KİTAP / KİTAP BÖLÜMÜ
+- PROJELER
+- ÖDÜLLER
 
-1. GitHub’da `yasinkutuk` hesabında `akademiktesvik` adlı **Public** depo oluşturun.
-2. Bu ZIP içindeki dosyaları (`index.html`, `styles.css`, `engine.js`, `app.js`, `CNAME`, `.nojekyll`) yeni deponun **köküne** yükleyip commit edin. ZIP dosyasını tek bir dosya olarak yüklemeyin.
-3. Depo **Settings → Pages → Build and deployment** altında Source = **Deploy from a branch**, Branch = **main**, Folder = **/(root)** seçin ve kaydedin.
-4. Aynı Pages bölümünde **Custom domain** = `akademiktesvik.yasinkutuk.com` yazıp Save deyin (bu aşamayı DNS eklemeden önce yapın).
-5. DNS yönettiğiniz hizmette (ör. Cloudflare), yalnızca bu alt alan adı için bir kayıt ekleyin:
+Ön profil bilgileri ve hazır kişisel veri örneği kaldırıldı. Profil özeti, ham profil metni ve kapsam dışındaki faaliyetler inceleme penceresinde gösterilmez. Önceki sürümün kaydettiği profil metni ve kapsam dışı inceleme kayıtları, uygulama açılışında yıl bazlı kayıtlardan temizlenir. Kayıtlar kişi kimliği ve yıl birlikte esas alınarak ayrı saklanır. Kişi değişince önceki kişinin incelemesi, onayları ve puanları yeni kişiye taşınmaz. Eski veriler cihazda korunur; kişisi doğrulanamayan kayıtlar yeni hesaba otomatik eklenmez.
 
-   | Type | Name | Target |
-   |---|---|---|
-   | CNAME | akademiktesvik | yasinkutuk.github.io |
+**İnceleme → Tümüne onay ver → Ön onaylıları hesaplamaya dahil et** akışı ve büyük artı/eksi düğmeleri korunur. Veriler onaysız puanlanmaz. Ön onaylı ve eksiksiz kayıtlar, diğerleri eksik veya onaysız olsa da hesaplanabilir. Eksik kayıtlar silinmez; incelemede kalır ve tamamlandıktan sonra ayrıca eklenebilir.
 
-   Cloudflare kullanıyorsanız ilk kurulum ve GitHub doğrulaması için `DNS only` (gri bulut) seçin. Kaydı `yasinkutuk.com` adresine ya da `yasinkutuk.github.io/akademiktesvik` URL'sine yönlendirmeyin.
-6. DNS doğrulaması başarılı olunca GitHub Pages ayarlarında **Enforce HTTPS** seçeneğini etkinleştirin.
+```bash
+pip install -r requirements.txt
+python server.py
+```
 
-GitHub Pages kaynakları: https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
-
-### Notlar
-
-- Mevcut `yasinkutuk.com` ve `www.yasinkutuk.com` yapılandırmalarına müdahale edilmez.
-- Başlangıçta 404 veya HTTPS sertifika beklemesi normal olabilir; DNS yayılımı bazen 24 saat alabilir.
-- Bu uygulama statiktir: sunucu kodu, veritabanı, Docker ve ücretli barındırma gerekmez.
-- Tarayıcı verileri kullanıcının kendi cihazında saklanır.
-- Bu paketin varlığı GitHub'a yükleme veya DNS değişikliği yapıldığı anlamına gelmez.
+Python 3.10+ gerekir. http://127.0.0.1:8000 adresini açın. Kurulum ve kullanım: [KURULUM.md](KURULUM.md).
