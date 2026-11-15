@@ -1,0 +1,15 @@
+'use strict';
+const assert=require('node:assert/strict');
+const E=require('../engine.js');
+const pending={key:'sample',title:'Kitap',year:2025,requestedYear:2025,kind:'Kitap',source:'https://akademik.yok.gov.tr/AkademikArama/view/viewAuthor.jsp?authorId=ABC',status:'preapproved',draft:{activityId:'3.10',people:'1',confirmed:true}};
+const state=E.cleanImport({...E.DEFAULTS,entries:[],review:[pending]});
+assert.equal(E.calculate(state).total,0,'Ön onaylı kayıtlar puanlanmamalı');
+assert.equal(state.review[0].status,'preapproved');
+assert.equal(E.cleanImport(JSON.parse(JSON.stringify(state))).review[0].draft.confirmed,true);
+const legacy=E.cleanImport({...E.DEFAULTS,entries:[]});
+assert.deepEqual(legacy.review,[],'Eski yedekler açılabilmeli');
+const unsafe=E.cleanImport({...state,review:[{...pending,source:'javascript:alert(1)',status:'included'}]});
+assert.equal(unsafe.review[0].source,'');assert.equal(unsafe.review[0].status,'pending');
+const scored=E.cleanImport({...state,entries:[{id:'yok-sample',activityId:'3.10',people:1,quantity:1}]});
+assert.ok(E.calculate(scored).total>0,'Yalnızca entries içine eklenen kayıtlar puanlanmalı');
+console.log('Motor testleri geçti: inceleme izolasyonu, yedek uyumluluğu, kaynak bağlantısı temizliği.');

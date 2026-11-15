@@ -1,0 +1,42 @@
+/* Deferred API responses exercise selection races and score isolation. */
+'use strict';
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const {JSDOM}=require(process.env.JSDOM_PATH||'jsdom');
+const root=path.resolve(__dirname,'..');
+const dom=new JSDOM(fs.readFileSync(path.join(root,'index.html'),'utf8'),{url:'http://localhost:8000',runScripts:'outside-only'}),w=dom.window,d=w.document;
+w.localStorage.setItem('tesvik-selected-year','2025');
+w.HTMLDialogElement.prototype.showModal=function(){this.setAttribute('open','');};w.HTMLDialogElement.prototype.close=function(){this.removeAttribute('open');};
+const urls=['https://akademik.yok.gov.tr/academician-details?authorGuidId=A','https://akademik.yok.gov.tr/academician-details?authorGuidId=B'];
+const pending=[];let imports=0;
+const response=(data,ok=true)=>({ok,headers:{get:()=> 'application/json'},json:async()=>data});
+w.fetch=async(url,options)=>{
+ if(url.includes('/search'))return response({candidates:urls.map((url,i)=>({url,name:'Kişi '+i,affiliation:'Örnek Üniversite'})),warnings:[]});
+ if(url.includes('/publication-summary'))return new Promise(resolve=>pending.push({resolve,body:JSON.parse(options.body),signal:options.signal}));
+ imports++;throw Error('Unexpected import');
+};
+w.eval(fs.readFileSync(path.join(root,'engine.js'),'utf8'));w.eval(fs.readFileSync(path.join(root,'app.js'),'utf8'));
+const tick=()=>new Promise(r=>setTimeout(r,0));
+const summary=(value,partial=false)=>({name:'Kişi '+value,counts:{SSCI:value,SCI:1,AHCI:0,SCOPUS:2},totalPublications:10,typeCounts:{article:5,conference:3,book:2},otherOrUnspecified:4,partial,warnings:partial?['Eksik kaynak sayfası']:[],note:'İndeksler örtüşebilir. Bu sayılar teşvik puanı değildir.'});
+const score=()=>d.getElementById('score-total').textContent;
+(async()=>{
+ assert.ok(d.getElementById('publication-summary').hidden);
+ d.getElementById('yok-name').value='Test Akademisyen';d.getElementById('yok-search').click();await tick();
+ const buttons=d.querySelectorAll('#yok-candidates button');buttons[0].click();
+ assert.ok(!d.getElementById('publication-summary').hidden);assert.match(d.getElementById('publication-summary-status').textContent,/yükleniyor/);assert.equal(d.getElementById('index-count-SSCI').textContent,'—');assert.equal(pending[0].body.researcherId,urls[0]);
+ buttons[1].click();assert.ok(pending[0].signal.aborted);assert.equal(pending[1].body.researcherId,urls[1]);
+ pending[1].resolve(response(summary(2)));await tick();assert.equal(d.getElementById('index-count-SSCI').textContent,'2');
+ pending[0].resolve(response(summary(9)));await tick();assert.equal(d.getElementById('index-count-SSCI').textContent,'2','Geç yanıt seçili profili değiştirmemeli');
+ assert.equal(score(),'0,00');assert.equal(imports,0);assert.ok(!d.getElementById('review-dialog').open);
+ d.getElementById('refresh-publication-summary').click();assert.equal(pending[2].body.refresh,true);assert.equal(d.getElementById('index-count-SSCI').textContent,'—');
+ pending[2].resolve(response({error:'YÖK erişim hatası'},false));await tick();
+ assert.equal(d.getElementById('index-count-SSCI').textContent,'—');assert.match(d.getElementById('publication-summary-status').textContent,/erişim hatası/);assert.equal(score(),'0,00');
+ d.getElementById('refresh-publication-summary').click();pending[3].resolve(response(summary(3,true)));await tick();
+ assert.match(d.getElementById('publication-summary-status').textContent,/kısmen/);assert.match(d.getElementById('publication-summary-note').textContent,/Eksik kaynak/);
+ d.getElementById('refresh-publication-summary').click();const empty={...summary(0),counts:{SSCI:0,SCI:0,AHCI:0,SCOPUS:0},totalPublications:0,typeCounts:{article:0,conference:0,book:0},otherOrUnspecified:0};pending[4].resolve(response(empty));await tick();
+ assert.equal(d.getElementById('index-count-SSCI').textContent,'0');assert.equal(d.getElementById('index-count-SCOPUS').textContent,'0');
+ assert.equal(d.getElementById('publication-summary').getAttribute('aria-busy'),'false');
+ d.getElementById('yok-search').click();await tick();assert.ok(d.getElementById('publication-summary').hidden);
+ assert.equal(imports,0);assert.equal(score(),'0,00');
+ assert.ok(!Object.values(w.localStorage).some(v=>String(v).includes('totalPublications')),'Özet yerel profil verisi olarak kaydedilmemeli');
+ dom.window.close();console.log('Summary UI passed: immediate selection load, stale response cancellation, errors vs true zero, partial results, refresh, no imports or scoring, no persistence.');
+})().catch(e=>{console.error(e);dom.window.close();process.exitCode=1;});
